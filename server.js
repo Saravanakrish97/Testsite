@@ -9,17 +9,27 @@ app.get('/', (req, res) => {
     res.sendFile(__dirname + '/public/index.html');
 });
 
+let users = {};
+
 io.on('connection', (socket) => {
     console.log('A user connected');
 
-    socket.broadcast.emit('chat message', 'A new user has joined the chat');
+    socket.on('new user', (username) => {
+        users[socket.id] = username;
+        io.emit('user list', Object.values(users));
+        socket.broadcast.emit('announcement', `${username} has joined the chat`);
+    });
 
-    socket.on('chat message', (msg) => {
-        io.emit('chat message', msg);
+    socket.on('chat message', (data) => {
+        io.emit('chat message', data);
     });
 
     socket.on('disconnect', () => {
         console.log('A user disconnected');
+        const username = users[socket.id];
+        delete users[socket.id];
+        io.emit('user list', Object.values(users));
+        io.emit('announcement', `${username} has left the chat`);
     });
 });
 
