@@ -3,13 +3,33 @@ let username = '';
 
 function enterChat() {
     const input = document.getElementById('username');
-    username = input.value.trim();
-    if (username !== '') {
-        document.getElementById('login-container').style.display = 'none';
-        document.getElementById('chat-container').style.display = 'flex';
-        socket.emit('new user', username);
+    const name = input.value.trim();
+    if (name === '') {
+        showError('Please enter a name.');
+        return;
     }
+    socket.emit('check username', name);
 }
+
+function showError(message) {
+    document.getElementById('error').textContent = message;
+}
+
+function clearError() {
+    document.getElementById('error').textContent = '';
+}
+
+socket.on('username exists', function() {
+    showError('Username already exists. Try another.');
+});
+
+socket.on('username ok', function(name) {
+    username = name;
+    clearError();
+    document.getElementById('login-container').style.display = 'none';
+    document.getElementById('chat-container').style.display = 'flex';
+    socket.emit('new user', username);
+});
 
 function sendMessage() {
     const input = document.getElementById('message');
