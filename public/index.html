@@ -1,16 +1,28 @@
 <!DOCTYPE html>
-<html lang="ta">
+<html lang="en">
 <head>
   <meta charset="UTF-8">
-  <title>Tamil Chatroom</title>
+  <title>Tamil Chat Room</title>
   <link rel="stylesheet" href="style.css">
 </head>
 <body>
-  <div id="chat-container">
-    <h1>தமிழ் அரட்டை அறை</h1>
-    <div id="chatbox"></div>
-    <input id="message" placeholder="உங்கள் செய்தியை உள்ளிடவும்..." />
-    <button onclick="sendMessage()">அனுப்பு</button>
+  <div id="login-container">
+    <h1>Welcome to Tamil Chat</h1>
+    <input id="username" placeholder="Enter your name..." />
+    <button onclick="enterChat()">Enter</button>
+  </div>
+
+  <div id="chat-container" style="display: none;">
+    <div id="online-users">
+      <h3>Online Users</h3>
+      <ul id="users"></ul>
+    </div>
+
+    <div id="chatbox-container">
+      <div id="chatbox"></div>
+      <input id="message" placeholder="Type a message..." />
+      <button onclick="sendMessage()">Send</button>
+    </div>
   </div>
 
   <script src="/socket.io/socket.io.js"></script>
