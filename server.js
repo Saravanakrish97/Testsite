@@ -1,47 +1,31 @@
 const express = require('express');
-const app = express();
-const http = require('http').Server(app);
-const io = require('socket.io')(http);
+const http = require('http');
+const socketIo = require('socket.io');
+const path = require('path');
 
-app.use(express.static('public'));
+const app = express();
+const server = http.createServer(app);
+const io = socketIo(server);
+
+app.use(express.static(path.join(__dirname, 'public')));
 
 app.get('/', (req, res) => {
-    res.sendFile(__dirname + '/public/index.html');
+  res.sendFile(path.join(__dirname, 'index.html'));  // Or wherever your home page is
 });
-
-let users = {};
 
 io.on('connection', (socket) => {
-    console.log('A user connected');
+  console.log('A user connected');
 
-    socket.on('check username', (name) => {
-        if (Object.values(users).includes(name)) {
-            socket.emit('username exists');
-        } else {
-            socket.emit('username ok', name);
-        }
-    });
+  // Chat message received from a user
+  socket.on('chatMessage', (data) => {
+    io.emit('chatMessage', data);  // Broadcast to all clients
+  });
 
-    socket.on('new user', (username) => {
-        users[socket.id] = username;
-        io.emit('user list', Object.values(users));
-        socket.broadcast.emit('announcement', `${username} has joined the chat`);
-    });
-
-    socket.on('chat message', (data) => {
-        io.emit('chat message', data);
-    });
-
-    socket.on('disconnect', () => {
-        console.log('A user disconnected');
-        const username = users[socket.id];
-        delete users[socket.id];
-        io.emit('user list', Object.values(users));
-        io.emit('announcement', `${username} has left the chat`);
-    });
+  socket.on('disconnect', () => {
+    console.log('A user disconnected');
+  });
 });
 
-const port = process.env.PORT || 3000;
-http.listen(port, () => {
-    console.log(`Server running on port ${port}`);
+server.listen(3000, () => {
+  console.log('Server is running on port 3000');
 });
