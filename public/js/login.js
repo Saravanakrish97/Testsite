@@ -1,17 +1,15 @@
-// This script handles login and guest functionality
-function joinWithLogin(event) {
-    event.preventDefault();  // Prevent form submission
-    let username = document.getElementById("username").value;
-    if (username === "") {
-        alert("Please enter your name!");
-        return;
-    }
-    localStorage.setItem("username", username);  // Store username locally
-    window.location.href = "/chatroom";  // Redirect to the chatroom
-}
+function login(type) {
+  const usernameInput = document.getElementById('username');
+  const username = usernameInput.value.trim();
 
-function joinAsGuest(event) {
-    event.preventDefault();
-    localStorage.setItem("username", "Guest_" + Math.floor(Math.random() * 10000));  // Random Guest Username
-    window.location.href = "/chatroom";  // Redirect to the chatroom
+  if (username === '') {
+    alert('Please enter a username.');
+    return;
+  }
+
+  if (type === 'guest') {
+    window.location.href = `/chat.html?username=Guest-${username}`;
+  } else if (type === 'user') {
+    window.location.href = `/chat.html?username=${username}`;
+  }
 }
