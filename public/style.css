@@ -4,14 +4,31 @@ body {
     text-align: center;
 }
 
+#login-container {
+    margin-top: 100px;
+}
+
 #chat-container {
-    margin: 50px auto;
-    width: 90%;
-    max-width: 500px;
-    padding: 20px;
-    background-color: #ffffff;
-    border-radius: 15px;
-    box-shadow: 0px 0px 10px 0px #b3d1ff;
+    display: flex;
+    margin: 20px;
+    justify-content: center;
+}
+
+#online-users {
+    width: 200px;
+    background: #ffffff;
+    border-radius: 10px;
+    margin-right: 10px;
+    padding: 10px;
+    box-shadow: 0px 0px 5px #99ccff;
+}
+
+#chatbox-container {
+    width: 400px;
+    background: #ffffff;
+    border-radius: 10px;
+    padding: 10px;
+    box-shadow: 0px 0px 5px #99ccff;
 }
 
 #chatbox {
@@ -27,6 +44,7 @@ body {
 input {
     width: 70%;
     padding: 10px;
+    margin-bottom: 10px;
     border: 1px solid #99ccff;
     border-radius: 5px;
 }
