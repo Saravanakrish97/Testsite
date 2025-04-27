@@ -1,31 +1,33 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <title>Tamil Chat Room</title>
-  <link rel="stylesheet" href="style.css">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tamil Chat Room</title>
+    <link rel="stylesheet" href="style.css">
 </head>
 <body>
-  <div id="login-container">
-    <h1>Welcome to Tamil Chat</h1>
-    <input id="username" placeholder="Enter your name..." />
-    <button onclick="enterChat()">Enter</button>
-  </div>
-
-  <div id="chat-container" style="display: none;">
-    <div id="online-users">
-      <h3>Online Users</h3>
-      <ul id="users"></ul>
+    <div id="login-container">
+        <h1>Welcome to Tamil Chat Room</h1>
+        <input id="username" placeholder="Enter your name..." />
+        <button onclick="enterChat()">Login</button>
+        <div id="error" style="color: red; margin-top: 10px;"></div>
     </div>
 
-    <div id="chatbox-container">
-      <div id="chatbox"></div>
-      <input id="message" placeholder="Type a message..." />
-      <button onclick="sendMessage()">Send</button>
-    </div>
-  </div>
+    <div id="chat-container" style="display: none;">
+        <div id="online-users">
+            <h3>Online Users</h3>
+            <ul id="users"></ul>
+        </div>
 
-  <script src="/socket.io/socket.io.js"></script>
-  <script src="script.js"></script>
+        <div id="chatbox-container">
+            <div id="chatbox"></div>
+            <input id="message" placeholder="Type a message..." />
+            <button onclick="sendMessage()">Send</button>
+        </div>
+    </div>
+
+    <script src="/socket.io/socket.io.js"></script>
+    <script src="script.js"></script>
 </body>
 </html>
