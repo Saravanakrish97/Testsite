@@ -1,103 +1,28 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>TamilChatroom</title>
-  <style>
-    /* Add some styles */
-    body {
-      font-family: Arial, sans-serif;
-      margin: 0;
-      padding: 0;
-      height: 100vh;
-      overflow: hidden;
-      position: relative;
-    }
-    
-    #bg-gif {
-      position: absolute;
-      top: 0;
-      left: 0;
-      width: 100%;
-      height: 100%;
-      object-fit: cover;
-      z-index: -1;
-    }
-
-    .login-container {
-      position: absolute;
-      top: 50%;
-      left: 50%;
-      transform: translate(-50%, -50%);
-      text-align: center;
-      z-index: 1;
-    }
-
-    input {
-      padding: 10px;
-      margin-bottom: 10px;
-      font-size: 18px;
-    }
-
-    button {
-      padding: 10px 20px;
-      font-size: 18px;
-      cursor: pointer;
-      margin: 10px;
-      background-color: #3498db;
-      color: white;
-      border: none;
-      border-radius: 5px;
-    }
-
-    .login-btn {
-      background-color: #3498db;
-    }
-
-    .guest-btn {
-      background-color: #2ecc71;
-    }
-  </style>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tamil Chatroom</title>
+    <script src="/public/js/login.js"></script> <!-- Link to the new login.js -->
+    <link rel="stylesheet" href="/public/css/login.css"> <!-- External CSS -->
 </head>
 <body>
+    <!-- Background GIF or Video -->
+    <video autoplay loop muted id="bg-gif">
+        <source src="/public/videos/romantic-video.mp4" type="video/mp4">
+        Your browser does not support the video tag.
+    </video>
 
-  <!-- Background GIF -->
-  <video autoplay loop muted id="bg-gif">
-    <source src="https://example.com/romantic-video.mp4" type="video/mp4">
-    Your browser does not support the video tag.
-  </video>
-
-  <!-- Login Form -->
-  <div class="login-container">
-    <h1>Welcome to TamilChatroom</h1>
-    <form id="login-form">
-      <input type="text" id="username" placeholder="Enter your name" required>
-      <br><br>
-      <button class="login-btn" onclick="joinWithLogin(event)">Login</button>
-      <br><br>
-      <button class="guest-btn" onclick="joinAsGuest(event)">Join as Guest</button>
-    </form>
-  </div>
-
-  <script>
-    function joinWithLogin(event) {
-      event.preventDefault();
-      let username = document.getElementById("username").value;
-      if (username === "") {
-        alert("Please enter your name!");
-        return;
-      }
-      localStorage.setItem("username", username);  // Store username locally
-      window.location.href = "/chatroom";  // Redirect to the chatroom
-    }
-
-    function joinAsGuest(event) {
-      event.preventDefault();
-      localStorage.setItem("username", "Guest_" + Math.floor(Math.random() * 10000));  // Random Guest Username
-      window.location.href = "/chatroom";  // Redirect to the chatroom
-    }
-  </script>
-
+    <div class="login-container">
+        <h1>Welcome to TamilChatroom</h1>
+        <form id="login-form">
+            <input type="text" id="username" placeholder="Enter your name" required>
+            <br><br>
+            <button class="login-btn" onclick="joinWithLogin(event)">Login</button>
+            <br><br>
+            <button class="guest-btn" onclick="joinAsGuest(event)">Join as Guest</button>
+        </form>
+    </div>
 </body>
 </html>
