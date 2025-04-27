@@ -14,6 +14,14 @@ let users = {};
 io.on('connection', (socket) => {
     console.log('A user connected');
 
+    socket.on('check username', (name) => {
+        if (Object.values(users).includes(name)) {
+            socket.emit('username exists');
+        } else {
+            socket.emit('username ok', name);
+        }
+    });
+
     socket.on('new user', (username) => {
         users[socket.id] = username;
         io.emit('user list', Object.values(users));
